@@ -37,3 +37,14 @@
 [Ссылка на коллекцию](https://elements.getpostman.com/redirect?entityId=24061165-51924c2c-9bed-4d87-918d-c26061d802f0&entityType=collection)
 
 [Ссылка на скачиванию JSON](https://api.postman.com/collections/24061165-51924c2c-9bed-4d87-918d-c26061d802f0?access_key=PMAT-01HB3AN8HRME1VP2WKNTA8TWNA)
+
+
+## Технические подробности
+
+- Реализован философия `Domain Driven Design`. Бизнес логики сгруппированы в отдельные домены. Домены:
+   - `Auth`
+   - `Order`
+   - `Product`
+- Использован понятие модель ориентированный `Repository`. Базируется на конкретной моделки `Eloquent`.
+- Для авторизации к некоторым бизнес задачам использован понятие Laravel - `Policy`.
+- Для аутентификации использован пакет `Passport`
