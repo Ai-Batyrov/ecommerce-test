@@ -10,6 +10,7 @@ use Ecommerce\Domains\Auth\Requests\LoginRequest;
 use Ecommerce\Domains\Auth\Requests\RegisterRequest;
 use Ecommerce\Domains\Auth\Response\UserResource;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 final class Controller extends BaseController
 {
@@ -17,7 +18,8 @@ final class Controller extends BaseController
     {
         return $this->response(
             'User is successfully authenticated.',
-            UserResource::make($repository->login($request->getDto()))
+            UserResource::make($repository->login($request->getDto())),
+            Response::HTTP_CREATED
         );
     }
 
@@ -25,7 +27,8 @@ final class Controller extends BaseController
     {
         return $this->response(
             'User is successfully registered.',
-            UserResource::make($repository->register($request->getDto()))
+            UserResource::make($repository->register($request->getDto())),
+            Response::HTTP_CREATED
         );
     }
 }
