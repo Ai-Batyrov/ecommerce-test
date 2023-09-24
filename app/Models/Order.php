@@ -12,12 +12,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
+ * @property int $user_id
+ * @property int $status_id
  * @property string $phone
- * @property bool $status
- * @property Carbon $created_at
- * @property Carbon $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  *
  * @property-read User $user
+ * @property-read OrderStatus $status
  * @property-read Product[]|Collection $products
  */
 final class Order extends Model
@@ -32,6 +34,7 @@ final class Order extends Model
      */
     protected $fillable = [
         'user_id',
+        'status_id',
         'phone',
         'status',
     ];
@@ -42,14 +45,28 @@ final class Order extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
-        'status' => 'boolean',
+        'status_id' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+    ];
+
+    /**
+     * @var string[]
+     */
+    protected $with = [
+        'user',
+        'status',
+        'products',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(OrderStatus::class, 'status_id', 'id');
     }
 
     public function products(): BelongsToMany

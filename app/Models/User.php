@@ -15,6 +15,7 @@ use Laravel\Passport\HasApiTokens;
  * @property string $lastname
  * @property string $email
  * @property string $password
+ * @property bool $is_admin
  *
  * @property-read Order[]|Collection $orders
  */
@@ -35,6 +36,14 @@ final class User extends BaseUser
         'lastname',
         'email',
         'password',
+        'is_admin',
+    ];
+
+    /**
+     * @var string[]
+     */
+    protected $casts = [
+        'is_admin' => 'boolean'
     ];
 
     public function orders(): HasMany

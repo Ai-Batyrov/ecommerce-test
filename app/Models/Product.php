@@ -7,6 +7,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -14,10 +15,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $name
  * @property string $description
  * @property int $cost
- * @property Carbon $created_at
- * @property Carbon $updated_at
+ * @property int $user_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  *
  * @property-read ProductPhoto[]|Collection $photos
+ * @property-read User $user
  */
 final class Product extends Model
 {
@@ -30,6 +33,7 @@ final class Product extends Model
      * @var string[]
      */
     protected $fillable = [
+        'user_id',
         'name',
         'description',
         'cost',
@@ -40,13 +44,27 @@ final class Product extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'user_id' => 'integer',
         'cost' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
+    /**
+     * @var string[]
+     */
+    protected $with = [
+        'user',
+        'photos',
+    ];
+
     public function photos(): HasMany
     {
         return $this->hasMany(ProductPhoto::class, 'product_id', 'id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

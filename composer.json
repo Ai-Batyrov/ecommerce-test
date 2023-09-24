@@ -26,7 +26,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Ecommerce\\": "ecommerce/"
+            "Ecommerce\\": "ecommerce/",
+            "Ecommerce\\Domains\\": "ecommerce/Domains/"
         }
     },
     "autoload-dev": {

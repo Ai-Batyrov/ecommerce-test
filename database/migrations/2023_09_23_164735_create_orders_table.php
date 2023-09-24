@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('phone', 12);
-            $table->boolean('status')->default(true);
+            $table->unsignedBigInteger('status_id');
+            $table->string('phone', 12)->comment('Kazakhstan phone number length');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('status_id')->references('id')->on('order_statuses');
         });
     }
 
